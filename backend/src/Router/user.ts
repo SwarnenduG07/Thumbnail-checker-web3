@@ -1,9 +1,28 @@
+import { PutObjectAclCommand, S3Client } from "@aws-sdk/client-s3";
+import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 import { PrismaClient } from "@prisma/client";
 import { Router } from "express";
 import jwt from "jsonwebtoken";
+import { authMiddleware } from "../middleeare";
+import { JWT_SECRET } from "..";
+
+const s3Client = new S3Client();
 const userRouter = Router();
-const JWT_SECRET = "swarnenduG077";
+
 const prismaClient = new PrismaClient();
+
+
+userRouter.get("/presignedUrl", authMiddleware , async (req,res) => {
+ //@ts-ignore
+    const userId = req.userId;
+        const command = new PutObjectAclCommand({
+            Bucket: "web-fiver",
+            Key: "",
+        })
+        const preSignedUrl = await getSignedUrl(s3Client, command, {
+            expiresIn: 3600,
+        })
+})
 
 userRouter.post("/signin", async (req , res) => {
 
