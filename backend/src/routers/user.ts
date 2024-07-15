@@ -60,7 +60,7 @@ router.get("/task", authMiddleware, async (req, res) => {
         })
     }
 
-    // Todo: Can u make this faster?
+    
     const responses = await prismaClient.submission.findMany({
         where: {
             task_id: Number(taskId)
@@ -140,7 +140,7 @@ router.post("/task", authMiddleware, async (req, res) => {
             message: "Transaction sent to wrong address"
         })
     }
-    // was this money paid by this user address or a different address?
+  
 
     // parse the signature here to ensure the person has paid 0.1 SOL
     // const transaction = Transaction.from(parseData.data.signature);
