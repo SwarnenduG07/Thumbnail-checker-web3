@@ -17,7 +17,7 @@ export default function RootLayout({
   const network = WalletAdapterNetwork.Mainnet;
 
 
-  const endpoint = "your_rpc_url";
+  const endpoint = "http://localhost:8899";
 
   const wallets = useMemo(
       () => [],
